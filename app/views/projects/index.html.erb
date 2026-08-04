@@ -1,0 +1,12 @@
+<h1>My Projects</h1>
+<ul>
+    <% @projects.each do |project| %>
+        <li>
+            <strong><%=project.title%></strong><br>
+            <%= project.description %><br>
+            Due: <%= project.due_date %>
+        </li>
+    <% end %>
+</ul>
+
+<p>Find me in app/views/projects/index.html.erb</p>

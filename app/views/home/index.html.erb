@@ -1,0 +1,13 @@
+<h1>Welcome to TaskFlow</h1>
+
+<p>
+  Organize your projects and tasks with a simple, secure task manager built with Ruby on Rails.
+</p>
+
+<% unless user_signed_in? %>
+  <p>
+    <%= link_to "Log In", new_user_session_path %>
+    |
+    <%= link_to "Sign Up", new_user_registration_path %>
+  </p>
+<% end %>
