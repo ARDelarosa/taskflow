@@ -1,2 +1,27 @@
-<h1>Projects#new</h1>
-<p>Find me in app/views/projects/new.html.erb</p>
+<h1>New Projects</h1>
+<%= form_with model: @project do |form| %>
+
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <br>
+
+  <div>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </div>
+
+  <br>
+
+  <div>
+    <%= form.label :due_date %><br>
+    <%= form.date_field :due_date %>
+  </div>
+
+  <br>
+
+  <%= form.submit "Create Project" %>
+
+<% end %>
