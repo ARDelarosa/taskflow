@@ -1,2 +1,26 @@
-<h1>Projects#edit</h1>
-<p>Find me in app/views/projects/edit.html.erb</p>
+<h1>Projects</h1>
+
+<%= form_with model: @project do |form| %>
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :due_date %>
+    <%= form.date_field :due_date %>
+  </div>
+
+  <div>
+    <%= form.submit "Update Project" %>
+  </div>
+<% end %>
+
+<p>
+  <%= link_to "← Back to My Projects", project_path(@project) %>
+</p>

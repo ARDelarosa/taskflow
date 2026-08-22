@@ -24,12 +24,24 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @project = current_user.projects.find(params[:id])
   end
 
   def update
+    @project = current_user.projects.find(params[:id])
+    
+    if @project.update(project_params)
+      redirect_to @project, notice: "Project was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
+    @project = current_user.projects.find(params[:id])
+    @project.destroy
+
+    redirect_to projects_path, notice: "Project was successfully deleted."
   end
 
   private
