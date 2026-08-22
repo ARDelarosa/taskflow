@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
+  get "tasks/new"
+  get "tasks/create"
+  get "tasks/edit"
+  get "tasks/update"
+  get "tasks/destroy"
   devise_for :users
 
-  resources :projects
+  resources :projects do
+    resources :tasks
+  end
 
   root "home#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

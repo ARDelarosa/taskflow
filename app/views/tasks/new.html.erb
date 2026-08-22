@@ -1,0 +1,22 @@
+<h1>Tasks#new</h1>
+<p>
+    Project: <strong><%= @project.title %></strong>
+</p>
+
+<%= form_with model: [@project, @task] do |form| %>
+<div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+</div>
+<div>
+    <%= form.label :details %>
+    <%= form.text_area :details %>
+</div>
+<div>
+    <%= form.label :due_date %>
+    <%= form.date_field :due_date %>
+</div>
+<div>
+    <%= form.submit "Create Task" %>
+</div>
+<% end %>

@@ -7,10 +7,35 @@
     <%= @project.due_date %>
 </p>
 
-<hr>
+<br>
 
 <h2>Tasks</h2>
 
-<p>No tasks yet.</p>
+<% @project.tasks.each do |task| %>
+    <h3><%= task.title %></h3>
+    
+    <p><%= task.details %></p>
 
-<%= link_to "← Back to Projects", projects_path %>
+    <p>Due: <%= task.due_date %></p>
+    
+    <p>
+    <%= form_with model: [(@project), task], method: :patch do |form| %>
+        <%= form.check_box :completed %>
+        <%= form.label :completed, "Completed" %>
+        <%= form.submit "Update" %>
+    <% end %>
+</p>
+
+<p>
+    <%= link_to "Edit", edit_project_task_path(@project, task) %>
+
+    <%= link_to "Delete",
+      project_task_path(@project, task),
+      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } 
+    %>
+<% end %>
+
+<br>
+
+<%= link_to "New Task", new_project_task_path(@project) %>
+<%= link_to "← Back to My Projects", projects_path %>
