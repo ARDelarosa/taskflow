@@ -4,8 +4,31 @@ class ProjectsController < ApplicationController
     @projects = current_user.projects
   end
 
-  def show
-    @project = current_user.projects.find(params[:id])
+ def show
+  @project = current_user.projects.find(params[:id])
+
+  @total_tasks = @project.tasks.count
+  @completed_tasks = @project.tasks.where(completed: true).count
+  @active_tasks = @total_tasks - @completed_tasks
+
+    if @total_tasks > 0
+      @progress_percentage = (@completed_tasks.to_f / @total_tasks * 100).round
+    else
+      @progress_percentage = 0
+    end
+
+    case params[:filter]
+    when "active"
+      @tasks = @project.tasks.where(completed: false)
+    when "completed"
+      @tasks = @project.tasks.where(completed: true)
+    else
+      @tasks = @project.tasks
+    end
+
+    @tasks = @tasks.order(
+      Arel.sql("due_date IS NULL, due_date ASC")
+    )
   end
 
   def new
