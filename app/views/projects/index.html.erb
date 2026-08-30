@@ -26,9 +26,38 @@
         <%= project.description %>
       </p>
 
-      <p class="mt-4 text-sm text-gray-500">
-        Due: <%= project.due_date %>
-      </p>
+      <% if project.due_date.present? %>
+        <p class="mt-4 text-sm text-gray-500">
+          Due: <%= project.due_date.strftime("%b %-d, %Y") %>
+        </p>
+      <% end %>
+
+      <div class="mt-5">
+
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-700">
+            Progress
+          </span>
+
+          <span class="text-sm text-gray-500">
+            <%= project.completed_tasks %> of <%= project.total_tasks %>
+          </span>
+        </div>
+
+        <div class="h-2 w-full rounded-full bg-gray-200">
+
+          <div
+            class="h-2 rounded-full bg-gray-900"
+            style="width: <%= project.progress_percentage %>%;">
+          </div>
+
+        </div>
+
+        <p class="mt-2 text-right text-xs text-gray-500">
+          <%= "%g" % project.progress_percentage %>%
+        </p>
+
+      </div>
 
       <div class="mt-6 flex gap-3">
 
