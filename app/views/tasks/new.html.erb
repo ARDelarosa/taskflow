@@ -1,22 +1,19 @@
-<h1>Tasks#new</h1>
-<p>
-    Project: <strong><%= @project.title %></strong>
-</p>
+<div class="mx-auto max-w-2xl">
 
-<%= form_with model: [@project, @task] do |form| %>
-<div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="mb-8">
+    <p class="text-sm font-medium text-gray-500">
+      Project
+    </p>
+
+    <h1 class="mt-1 text-3xl font-bold text-gray-900">
+      New Task
+    </h1>
+
+    <p class="mt-2 text-gray-600">
+      Add a task to <strong><%= @project.title %></strong>.
+    </p>
+  </div>
+
+  <%= render "form", project: @project, task: @task %>
+
 </div>
-<div>
-    <%= form.label :details %>
-    <%= form.text_area :details %>
-</div>
-<div>
-    <%= form.label :due_date %>
-    <%= form.date_field :due_date %>
-</div>
-<div>
-    <%= form.submit "Create Task" %>
-</div>
-<% end %>

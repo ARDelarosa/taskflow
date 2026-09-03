@@ -1,0 +1,62 @@
+<% if task.errors.any? %>
+  <div class="mb-6 rounded-lg bg-red-50 p-4 text-red-700">
+    <h2 class="font-semibold">
+      <%= pluralize(task.errors.count, "error") %>
+      prevented this task from being saved:
+    </h2>
+
+    <ul class="mt-2 list-disc pl-5">
+      <% task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+
+  <%= form_with model: [project, task] do |form| %>
+
+    <div class="space-y-6">
+
+      <div>
+        <%= form.label :title,
+            class: "block text-sm font-medium text-gray-700" %>
+
+        <%= form.text_field :title,
+            class: "mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900" %>
+      </div>
+
+      <div>
+        <%= form.label :details,
+            class: "block text-sm font-medium text-gray-700" %>
+
+        <%= form.text_area :details,
+            rows: 5,
+            class: "mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900" %>
+      </div>
+
+      <div>
+        <%= form.label :due_date,
+            class: "block text-sm font-medium text-gray-700" %>
+
+        <%= form.date_field :due_date,
+            class: "mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900" %>
+      </div>
+
+      <div class="flex items-center gap-3 border-t border-gray-100 pt-6">
+
+        <%= form.submit "Save Task",
+            class: "rounded-lg bg-gray-900 px-5 py-3 font-medium text-white hover:bg-gray-700" %>
+
+        <%= link_to "Cancel",
+            project_path(project),
+            class: "rounded-lg border border-gray-300 px-5 py-3 font-medium text-gray-700 hover:bg-gray-50" %>
+
+      </div>
+
+    </div>
+
+  <% end %>
+
+</div>

@@ -1,26 +1,15 @@
-<h1>Projects</h1>
+<div class="mx-auto max-w-2xl">
 
-<%= form_with model: @project do |form| %>
-  <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">
+      Edit Project
+    </h1>
+
+    <p class="mt-2 text-gray-600">
+      Update your project details.
+    </p>
   </div>
 
-  <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
+  <%= render "form", project: @project %>
 
-  <div>
-    <%= form.label :due_date %>
-    <%= form.date_field :due_date %>
-  </div>
-
-  <div>
-    <%= form.submit "Update Project" %>
-  </div>
-<% end %>
-
-<p>
-  <%= link_to "← Back to My Projects", project_path(@project) %>
-</p>
+</div>

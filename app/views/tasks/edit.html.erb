@@ -1,32 +1,19 @@
-<h1>Edit Task</h1>
+<div class="mx-auto max-w-2xl">
 
-<p>
-  Project: <strong><%= @project.title %></strong>
-</p>
+  <div class="mb-8">
+    <p class="text-sm font-medium text-gray-500">
+      Project
+    </p>
 
-<%= form_with model: [@project, @task] do |form| %>
+    <h1 class="mt-1 text-3xl font-bold text-gray-900">
+      Edit Task
+    </h1>
 
-  <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <p class="mt-2 text-gray-600">
+      Update this task in <strong><%= @project.title %></strong>.
+    </p>
   </div>
 
-  <div>
-    <%= form.label :details %>
-    <%= form.text_area :details %>
-  </div>
+  <%= render "form", project: @project, task: @task %>
 
-  <div>
-    <%= form.label :due_date %>
-    <%= form.date_field :due_date %>
-  </div>
-
-  <div>
-    <%= form.submit "Update Task" %>
-  </div>
-
-<% end %>
-
-<p>
-  <%= link_to "← Back to Project", project_path(@project) %>
-</p>
+</div>
