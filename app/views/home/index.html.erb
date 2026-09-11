@@ -1,13 +1,188 @@
-<h1>Welcome to TaskFlow</h1>
+<div class="mx-auto max-w-7xl px-6">
 
-<p>
-  Organize your projects and tasks with a simple, secure task manager built with Ruby on Rails.
-</p>
+  <!-- Hero Section -->
+  <section class="grid items-center gap-12 py-16 lg:grid-cols-5 lg:py-24">
 
-<% unless user_signed_in? %>
-  <p>
-    <%= link_to "Log In", new_user_session_path %>
-    |
-    <%= link_to "Sign Up", new_user_registration_path %>
-  </p>
-<% end %>
+    <div class="lg:col-span-2">
+
+      <p class="text-sm font-semibold uppercase tracking-widest text-gray-500">
+        Simple. Focused. Productive.
+      </p>
+
+      <h1 class="mt-4 text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+        TaskFlow
+      </h1>
+
+      <h2 class="mt-4 text-3xl font-semibold text-gray-800">
+        Organize. Track. Accomplish.
+      </h2>
+
+      <p class="mt-6 max-w-xl text-lg leading-8 text-gray-600">
+        Manage your projects and tasks with a simple, secure task manager
+        built with Ruby on Rails.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+
+        <% unless user_signed_in? %>
+
+          <%= link_to "Get Started",
+              new_user_registration_path,
+              class: "rounded-lg bg-gray-900 px-6 py-3 font-medium text-white shadow-sm hover:bg-gray-700" %>
+
+          <%= link_to "Log In",
+              new_user_session_path,
+              class: "rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-900 shadow-sm hover:bg-gray-50" %>
+
+        <% else %>
+
+          <%= link_to "Go to Projects",
+              projects_path,
+              class: "rounded-lg bg-gray-900 px-6 py-3 font-medium text-white shadow-sm hover:bg-gray-700" %>
+
+        <% end %>
+
+      </div>
+
+      <p class="mt-4 text-sm text-gray-500">
+        Create an account and start organizing your work today.
+      </p>
+
+    </div>
+
+    <div class="flex justify-center lg:col-span-3 lg:justify-end">
+
+      <%= image_tag "taskflow-hero.png",
+          alt: "TaskFlow project management dashboard",
+          class: "w-full max-w-none" %>
+
+    </div>
+
+  </section>
+
+
+  <!-- Features Section -->
+  <section class="border-t border-gray-200 py-16">
+
+    <div class="grid gap-8 md:grid-cols-3">
+
+      <!-- Projects -->
+      <div class="rounded-xl bg-white p-8 shadow-sm ring-1 ring-gray-200">
+
+        <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.8"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75A2.25 2.25 0 0 1 6 4.5h3l1.5 1.5h7.5A2.25 2.25 0 0 1 20.25 8.25v9A2.25 2.25 0 0 1 18 19.5H6a2.25 2.25 0 0 1-2.25-2.25v-10.5Z"
+            />
+          </svg>
+
+        </div>
+
+        <h3 class="mt-5 text-xl font-semibold text-gray-900">
+          Projects
+        </h3>
+
+        <p class="mt-2 leading-7 text-gray-600">
+          Keep your work organized by grouping related tasks into projects.
+        </p>
+
+      </div>
+
+
+      <!-- Tasks -->
+      <div class="rounded-xl bg-white p-8 shadow-sm ring-1 ring-gray-200">
+
+        <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-50 text-green-600">
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.8"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m4.5 12.75 6 6 9-13.5"
+            />
+          </svg>
+
+        </div>
+
+        <h3 class="mt-5 text-xl font-semibold text-gray-900">
+          Tasks
+        </h3>
+
+        <p class="mt-2 leading-7 text-gray-600">
+          Break projects into manageable tasks and keep track of what needs
+          to get done.
+        </p>
+
+      </div>
+
+
+      <!-- Progress -->
+      <div class="rounded-xl bg-white p-8 shadow-sm ring-1 ring-gray-200">
+
+        <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-50 text-purple-600">
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.8"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 19.5V14.25m5.25 5.25V9m5.25 10.5V4.5m5.25 15V11.25"
+            />
+          </svg>
+
+        </div>
+
+        <h3 class="mt-5 text-xl font-semibold text-gray-900">
+          Progress
+        </h3>
+
+        <p class="mt-2 leading-7 text-gray-600">
+          See how much you've accomplished and stay focused on what's next.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Portfolio / Technology Section -->
+  <section class="border-t border-gray-200 py-12 text-center">
+
+    <p class="text-sm font-medium uppercase tracking-widest text-gray-400">
+      Built with Ruby on Rails
+    </p>
+
+    <p class="mt-3 text-sm text-gray-500">
+      TaskFlow is a portfolio project demonstrating Rails MVC,
+      PostgreSQL, Devise authentication, associations, validations,
+      and responsive UI design.
+    </p>
+
+  </section>
+
+</div>
