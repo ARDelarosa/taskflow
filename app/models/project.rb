@@ -4,7 +4,6 @@ class Project < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, length: { maximum: 500 }
-  validates :due_date, presence: true
 
   def total_tasks
     tasks.count

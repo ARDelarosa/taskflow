@@ -1,0 +1,308 @@
+<div class="mb-8">
+  <h1 class="text-3xl font-bold text-gray-900">
+    Welcome back!
+  </h1>
+
+  <p class="mt-2 text-gray-600">
+    Here's an overview of your projects and tasks.
+  </p>
+</div>
+
+<!-- Stats Section -->
+
+<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+  <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+    <p class="text-sm font-medium text-gray-500">
+      Projects
+    </p>
+
+    <p class="mt-2 text-3xl font-bold text-gray-900">
+      <%= @projects.count %>
+    </p>
+
+    <p class="mt-1 text-sm text-gray-500">
+      Total projects
+    </p>
+  </div>
+
+  <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+    <p class="text-sm font-medium text-gray-500">
+      Active Tasks
+    </p>
+
+    <p class="mt-2 text-3xl font-bold text-gray-900">
+      <%= @active_tasks.count %>
+    </p>
+
+    <p class="mt-1 text-sm text-gray-500">
+      Currently active
+    </p>
+  </div>
+
+  <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+    <p class="text-sm font-medium text-gray-500">
+      Completed Tasks
+    </p>
+
+    <p class="mt-2 text-3xl font-bold text-gray-900">
+      <%= @completed_tasks.count %>
+    </p>
+
+    <p class="mt-1 text-sm text-gray-500">
+      Completed
+    </p>
+  </div>
+
+  <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+    <p class="text-sm font-medium text-gray-500">
+      Overdue Tasks
+    </p>
+
+    <p class="mt-2 text-3xl font-bold text-gray-900">
+      <%= @overdue_tasks.count %>
+    </p>
+
+    <p class="mt-1 text-sm text-gray-500">
+      Past Due
+    </p>
+  </div>
+
+  <!-- Projects Section -->
+
+  <div class="mt-10">
+
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-gray-900">
+        Your Projects
+      </h2>
+
+      <p class="mt-1 text-sm text-gray-500">
+        Track progress across your projects.
+      </p>
+    </div>
+
+    <% if @projects.any? %>
+
+      <div class="space-y-4">
+
+        <% @projects.each do |project| %>
+
+          <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900">
+                  <%= project.title %>
+                </h3>
+
+                <p class="mt-1 text-sm text-gray-500">
+                  <%= project.completed_tasks %>
+                  of
+                  <%= project.total_tasks %>
+                  tasks completed
+                </p>
+              </div>
+
+              <p class="text-sm font-semibold text-gray-900">
+                <%= project.progress_percentage %>%
+              </p>
+            </div>
+
+            <div class="mt-4 h-2 overflow-hidden rounded-full bg-gray-200">
+              <div
+                class="h-full rounded-full bg-gray-900"
+                style="width: <%= project.progress_percentage %>%"
+              ></div>
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    <% else %>
+
+      <div class="rounded-xl bg-white p-8 text-center shadow-sm ring-1 ring-gray-200">
+
+        <h3 class="text-lg font-semibold text-gray-900">
+          No projects yet
+        </h3>
+
+        <p class="mt-2 text-sm text-gray-500">
+          Create your first project to start organizing your work.
+        </p>
+
+        <%= link_to "Create Your First Project",
+            new_project_path,
+            class: "mt-5 inline-block rounded-lg bg-gray-900 px-5 py-3 text-sm font-medium text-white hover:bg-gray-800" %>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+  <!-- Upcoming Tasks Section -->
+
+  <div class="mt-10">
+
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-gray-900">
+        Upcoming Tasks
+      </h2>
+
+      <p class="mt-1 text-sm text-gray-500">
+        Stay on top of your upcoming work.
+      </p>
+    </div>
+
+    <% if @upcoming_tasks.any? %>
+
+      <div class="space-y-4">
+
+        <% @upcoming_tasks.each do |task| %>
+
+          <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+
+            <div class="flex items-center justify-between gap-4">
+
+              <div>
+                <h3 class="font-semibold text-gray-900">
+                  <%= link_to task.title,
+                      project_path(task.project),
+                      class: "hover:underline" %>
+                </h3>
+
+                <p class="mt-1 text-sm text-gray-500">
+                  <%= link_to task.project.title,
+                      project_path(task.project),
+                      class: "hover:text-gray-900 hover:underline" %>
+                </p>
+              </div>
+
+              <div class="shrink-0 text-right">
+
+                <% if task.due_date.present? %>
+
+                  <p class="text-sm font-medium text-gray-900">
+                    <%= task.due_date.strftime("%b %-d, %Y") %>
+                  </p>
+
+                  <p class="mt-1 text-xs text-gray-500">
+                    Due date
+                  </p>
+
+                <% else %>
+
+                  <p class="text-sm font-medium text-gray-500">
+                    No due date
+                  </p>
+
+                <% end %>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    <% else %>
+
+      <div class="rounded-xl bg-white p-8 text-center shadow-sm ring-1 ring-gray-200">
+
+        <h3 class="text-lg font-semibold text-gray-900">
+          No upcoming tasks
+        </h3>
+
+        <p class="mt-2 text-sm text-gray-500">
+          You're all caught up. Create a task to keep moving forward.
+        </p>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+  <!-- OverDue Tasks Section -->
+  <div class="mt-10">
+
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-gray-900">
+        Overdue Tasks
+      </h2>
+
+      <p class="mt-1 text-sm text-gray-500">
+        Tasks that need your attention.
+      </p>
+    </div>
+
+    <% if @overdue_tasks.any? %>
+
+      <div class="space-y-4">
+
+        <% @overdue_tasks.each do |task| %>
+
+          <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-red-200">
+
+            <div class="flex items-center justify-between gap-4">
+
+              <div>
+                <h3 class="font-semibold text-gray-900">
+                  <%= link_to task.title,
+                      project_path(task.project),
+                      class: "hover:underline" %>
+                </h3>
+
+                <p class="mt-1 text-sm text-gray-500">
+                  <%= link_to task.project.title,
+                      project_path(task.project),
+                      class: "hover:text-gray-900 hover:underline" %>
+                </p>
+              </div>
+
+              <div class="shrink-0 text-right">
+
+                <p class="text-sm font-medium text-red-600">
+                  <%= task.due_date.strftime("%b %-d, %Y") %>
+                </p>
+
+                <p class="mt-1 text-xs text-red-500">
+                  Past due
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    <% else %>
+
+      <div class="rounded-xl bg-white p-8 text-center shadow-sm ring-1 ring-gray-200">
+
+        <h3 class="text-lg font-semibold text-gray-900">
+          No overdue tasks
+        </h3>
+
+        <p class="mt-2 text-sm text-gray-500">
+          You're all caught up!
+        </p>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>
