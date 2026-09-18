@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  get "dashboard", to: "dashboard#index"
+  get "/search", to: "search#index"
+  get "/dashboard", to: "dashboard#index"
   get "tasks/new"
   get "tasks/create"
   get "tasks/edit"

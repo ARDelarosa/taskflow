@@ -1,0 +1,69 @@
+<div class="mb-8">
+
+  <h1 class="text-3xl font-bold text-gray-900">
+    Search TaskFlow
+  </h1>
+
+  <h2 class="text-xl font-semibold text-gray-900">
+    Search results for "<%= params[:q] %>"
+  </h2>
+
+  <p class="mt-2 text-gray-600">
+    Search your projects and tasks.
+  </p>
+
+
+  <% if @projects.any? %>
+
+    <h3 class="text-lg font-medium text-gray-900">
+      Projects
+    </h3>
+
+    <ul class="mt-2 space-y-2">
+      <% @projects.each do |project| %>
+        <li>
+          <%= link_to project.title, project_path(project),
+              class: "text-blue-600 hover:underline" %>
+        </li>
+      <% end %>
+    </ul>
+
+  <% end %>
+
+
+  <% if @tasks.any? %>
+
+    <h3 class="text-lg font-medium text-gray-900">
+      Tasks
+    </h3>
+
+    <ul class="mt-2 space-y-2">
+      <% @tasks.each do |task| %>
+        <li>
+          <%= link_to task.title, project_path(task.project),
+              class: "text-blue-600 hover:underline" %>
+        </li>
+      <% end %>
+    </ul>
+
+  <% end %>
+
+
+  <% if params[:q].present? && !@projects.any? && !@tasks.any? %>
+
+    <div class="mt-8 rounded-xl bg-white p-8 text-center shadow-sm ring-1 ring-gray-200">
+
+      <h3 class="text-lg font-semibold text-gray-900">
+        No results found
+      </h3>
+
+      <p class="mt-2 text-sm text-gray-500">
+        We couldn't find any projects or tasks matching
+        "<%= params[:q] %>".
+      </p>
+
+    </div>
+
+  <% end %>
+
+</div>
