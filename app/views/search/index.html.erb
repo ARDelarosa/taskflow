@@ -4,47 +4,87 @@
     Search TaskFlow
   </h1>
 
-  <h2 class="text-xl font-semibold text-gray-900">
-    Search results for "<%= params[:q] %>"
-  </h2>
-
   <p class="mt-2 text-gray-600">
     Search your projects and tasks.
   </p>
 
+  <% if params[:q].present? %>
+    <h2 class="mt-6 text-xl font-semibold text-gray-900">
+      Search results for "<%= params[:q] %>"
+    </h2>
+  <% end %>
+
+<!--Projects Search Results-->
 
   <% if @projects.any? %>
 
-    <h3 class="text-lg font-medium text-gray-900">
-      Projects
-    </h3>
+    <div class="mt-8">
 
-    <ul class="mt-2 space-y-2">
-      <% @projects.each do |project| %>
-        <li>
-          <%= link_to project.title, project_path(project),
-              class: "text-blue-600 hover:underline" %>
-        </li>
-      <% end %>
-    </ul>
+      <h2 class="mb-4 text-xl font-bold text-gray-900">
+        Projects
+      </h2>
+
+      <div class="space-y-3">
+
+        <% @projects.each do |project| %>
+
+          <%= link_to project_path(project),
+              class: "block rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-200 hover:ring-gray-300" do %>
+
+            <h3 class="font-semibold text-gray-900">
+              <%= project.title %>
+            </h3>
+
+            <p class="mt-1 text-sm text-gray-500">
+              View project →
+            </p>
+
+          <% end %>
+
+        <% end %>
+
+      </div>
+
+    </div>
 
   <% end %>
 
+<!--Tasks Search Results-->
 
   <% if @tasks.any? %>
 
-    <h3 class="text-lg font-medium text-gray-900">
-      Tasks
-    </h3>
+    <div class="mt-8">
 
-    <ul class="mt-2 space-y-2">
-      <% @tasks.each do |task| %>
-        <li>
-          <%= link_to task.title, project_path(task.project),
-              class: "text-blue-600 hover:underline" %>
-        </li>
-      <% end %>
-    </ul>
+      <h2 class="mb-4 text-xl font-bold text-gray-900">
+        Tasks
+      </h2>
+
+      <div class="space-y-3">
+
+        <% @tasks.each do |task| %>
+
+          <%= link_to project_path(task.project),
+              class: "block rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-200 hover:ring-gray-300" do %>
+
+            <h3 class="font-semibold text-gray-900">
+              <%= task.title %>
+            </h3>
+            
+            <p class="mt-1 text-sm text-gray-500">
+              Project: <%= task.project.title %>
+            </p>
+
+            <p class="mt-1 text-sm text-gray-500">
+              View project →
+            </p>
+
+          <% end %>
+
+        <% end %>
+
+      </div>
+
+    </div>
 
   <% end %>
 

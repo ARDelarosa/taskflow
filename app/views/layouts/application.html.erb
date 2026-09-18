@@ -40,11 +40,16 @@
             <%= link_to "Projects", projects_path,
                 class: "hover:text-gray-300" %>
 
-            <%= form_with url: search_path, method: :get, local: true, class: "flex items-center" do |form| %>
+            <%= form_with url: search_path, method: :get, local: true,
+                class: "flex items-center" do |form| %>
 
-              <%= form.text_field :q, placeholder: "Search...", class: "rounded-lg px-4 py-2 text-gray-900" %>
-              <%= form.submit "Search", class: "ml-2 rounded-lg bg-blue-600 px-4 py-2 text-white font-medium hover:bg-blue-700" %>
-              
+              <%= form.text_field :q,
+                  placeholder: "Search...",
+                  class: "w-40 rounded-lg border border-gray-500 bg-gray-700 px-3 py-2 text-sm text-white placeholder-gray-400 focus:border-white focus:outline-none focus:ring-1 focus:ring-white" %>
+
+              <%= form.submit "Search",
+                  class: "ml-2 rounded-lg bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200" %>
+
             <% end %>
 
             <%= link_to "New Project", new_project_path,
