@@ -12,7 +12,7 @@
       class: "rounded-lg bg-gray-900 px-5 py-3 font-medium text-white hover:bg-gray-700" %>
 </div>
 
-<% if @projects.any? %>
+<% if @pagy.count > 0 %>
 
   <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 
@@ -91,6 +91,10 @@
 
     <% end %>
 
+  </div>
+
+  <div class="mt-8 flex justify-center">
+    <%= @pagy.series_nav %>
   </div>
 
 <% else %>

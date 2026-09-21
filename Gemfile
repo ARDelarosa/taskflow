@@ -18,6 +18,8 @@ gem "stimulus-rails"
 gem "jbuilder"
 # Devise is a flexible authentication solution for Rails.
 gem "devise", "~> 4.8"
+# Pagy is a pagination library for Rails that is fast, efficient, and easy to use.
+gem "pagy", "~> 43.0"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"

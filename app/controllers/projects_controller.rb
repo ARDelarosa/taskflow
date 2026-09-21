@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @projects = current_user.projects
+    @pagy, @projects = pagy(:offset, current_user.projects, limit: 10)
   end
 
  def show
