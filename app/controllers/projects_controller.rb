@@ -10,6 +10,9 @@ class ProjectsController < ApplicationController
   @total_tasks = @project.tasks.count
   @completed_tasks = @project.tasks.where(completed: true).count
   @active_tasks = @total_tasks - @completed_tasks
+  @high_tasks = @project.tasks.high.count
+  @medium_tasks = @project.tasks.medium.count
+  @low_tasks = @project.tasks.low.count
 
     if @total_tasks > 0
       @progress_percentage = (@completed_tasks.to_f / @total_tasks * 100).round
@@ -22,6 +25,12 @@ class ProjectsController < ApplicationController
       @tasks = @project.tasks.where(completed: false)
     when "completed"
       @tasks = @project.tasks.where(completed: true)
+    when "high"
+      @tasks = @project.tasks.high
+    when "medium"
+      @tasks = @project.tasks.medium
+    when "low"
+      @tasks = @project.tasks.low
     else
       @tasks = @project.tasks
     end

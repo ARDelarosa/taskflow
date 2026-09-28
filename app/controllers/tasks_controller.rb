@@ -51,6 +51,7 @@ def task_params
     :title, 
     :details, 
     :completed, 
+    :priority,
     :due_date
     )
 end
