@@ -4,15 +4,15 @@ class DashboardController < ApplicationController
   def index
     @projects = current_user.projects
 
-    @active_tasks = current_user.tasks.where(completed: false)
-    @completed_tasks = current_user.tasks.where(completed: true)
+    @active_tasks = current_user.tasks.where.not(status: :completed)
+    @completed_tasks = current_user.tasks.where(status: :completed)
 
     @overdue_tasks = current_user.tasks
-      .where(completed: false)
+      .where.not(status: :completed)
       .where("tasks.due_date < ?", Date.current)
 
     @upcoming_tasks = current_user.tasks
-      .where(completed: false)
+      .where.not(status: :completed)
       .where(
         "tasks.due_date >= ? OR tasks.due_date IS NULL",
         Date.current

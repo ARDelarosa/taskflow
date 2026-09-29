@@ -46,14 +46,14 @@ class TasksController < ApplicationController
     redirect_to @project, notice: "Task was successfully deleted."
   end
 
-def task_params
-  params.require(:task).permit(
-    :title, 
-    :details, 
-    :completed, 
-    :priority,
-    :due_date
-    )
-end
+  def task_params
+    params.require(:task).permit(
+      :title,
+      :details,
+      :priority,
+      :status,
+      :due_date
+      )
+  end
 
 end

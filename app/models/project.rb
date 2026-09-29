@@ -10,7 +10,7 @@ class Project < ApplicationRecord
   end
 
   def completed_tasks
-      tasks.where(completed: true).count
+      tasks.where(status: :completed).count
   end
 
   def progress_percentage

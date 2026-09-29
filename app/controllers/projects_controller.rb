@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   @project = current_user.projects.find(params[:id])
 
   @total_tasks = @project.tasks.count
-  @completed_tasks = @project.tasks.where(completed: true).count
+  @completed_tasks = @project.tasks.where(status: :completed).count
   @active_tasks = @total_tasks - @completed_tasks
   @high_tasks = @project.tasks.high.count
   @medium_tasks = @project.tasks.medium.count
@@ -22,9 +22,9 @@ class ProjectsController < ApplicationController
 
     case params[:filter]
     when "active"
-      @tasks = @project.tasks.where(completed: false)
+      @tasks = @project.tasks.where.not(status: :completed)
     when "completed"
-      @tasks = @project.tasks.where(completed: true)
+      @tasks = @project.tasks.where(status: :completed)
     when "high"
       @tasks = @project.tasks.high
     when "medium"

@@ -131,36 +131,56 @@
 
       <% @tasks.each do |task| %>
 
-        <div class="<%= task.completed ? 'rounded-xl bg-gray-50 p-6 shadow-sm ring-1 ring-gray-200' : 'rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200' %>">
+        <div class="<%= task.status == "completed" ? 'rounded-xl bg-gray-50 p-6 shadow-sm ring-1 ring-gray-200' : 'rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200' %>">
 
           <div class="flex items-start justify-between">
 
             <div class="flex-1">
 
-              <h3 class="<%= task.completed ? 'text-lg font-semibold text-gray-400 line-through' : 'text-lg font-semibold text-gray-900' %>">
+              <!-- Status Badge -->
+
+              <h3 class="<%= task.status == 'completed' ? 'text-lg font-semibold text-gray-400 line-through' : 'text-lg font-semibold text-gray-900' %>">
                 <%= task.title %>
               </h3>
 
-              <% if task.completed? %>
+              <% if task.status == "completed" %>
                 <span class="mt-1 inline-block rounded-full bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-400">
                   Completed
                 </span>
+              <% elsif task.status == "in_progress" %>
+                <span class="mt-1 inline-block rounded-full bg-blue-100 px-2.5 py-1 text-xs font-semibold text-blue-700">
+                  In Progress
+                </span>
+              <% else %>
+                <span class="mt-1 inline-block rounded-full bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-600">
+                  To Do
+                </span>
+              <% end %>
+
+              <!-- Priority Badge -->
+
+              <% if task.status == "completed" %>
+                <span class="mt-1 inline-block rounded-full bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-400">
+                  <%= task.priority.humanize %>
+                </span>
               <% elsif task.high? %>
-                <span class="rounded-full bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-700">
+                <span class="mt-1 inline-block rounded-full bg-red-100 px-2.5 py-1 text-xs font-semibold text-red-700">
                   High
                 </span>
               <% elsif task.medium? %>
-                <span class="rounded-full bg-yellow-100 px-2.5 py-1 text-xs font-semibold text-yellow-700">
+                <span class="mt-1 inline-block rounded-full bg-yellow-100 px-2.5 py-1 text-xs font-semibold text-yellow-700">
                   Medium
                 </span>
-              <% elsif task.low? %>
-                <span class="rounded-full bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-700">
+              <% else %>
+                <span class="mt-1 inline-block rounded-full bg-green-100 px-2.5 py-1 text-xs font-semibold text-green-700">
                   Low
                 </span>
               <% end %>
 
+              <!-- Task Details and Due Date -->
+
               <% if task.details.present? %>
-                <p class="<%= task.completed ? 'mt-2 text-gray-400 line-through' : 'mt-2 text-gray-600' %>">
+                <p class="<%= task.status == 'completed' ? 'mt-2 text-gray-400 line-through' : 'mt-2 text-gray-600' %>">
                   <%= task.details %>
 
                 </p>
@@ -168,14 +188,14 @@
 
               <% if task.due_date.present? %>
 
-                  <% if !task.completed && task.due_date < Date.current %>
+                  <% if task.due_date.present? && task.status != "completed" && task.due_date < Date.current %>
 
                       <p class="mt-3 text-sm font-semibold text-red-600">
                       ⚠ Overdue:
                       <%= task.due_date.strftime("%b %-d, %Y") %>
                       </p>
 
-                  <% elsif task.completed %>
+                  <% elsif task.status == "completed" %>
 
                       <p class="mt-3 text-sm text-gray-400 line-through">
                       Due:
@@ -199,13 +219,15 @@
 
               <%= form_with model: [@project, task], method: :patch do |form| %>
 
-                <%= form.check_box :completed,
-                    onchange: "this.form.requestSubmit()" %>
+                <%= form.label :status,
+                    "Status",
+                    class: "block text-sm font-medium text-gray-700" %>
 
-                <%= form.label :completed,
-                    task.completed ? "Completed" : "Mark Complete",
-                    class: "text-sm text-gray-600" %>
-
+                <%= form.select :status,
+                    Task.statuses.keys.map { |status| [status.humanize, status] },
+                    {},
+                    onchange: "this.form.requestSubmit()",
+                    class: "mt-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-900" %>
               <% end %>
 
             </div>
